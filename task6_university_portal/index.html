@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini University Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Mini University Portal</h1>
+            <p>Integrated Student Management System</p>
+        </header>
+
+        <section class="portal-main">
+            <!-- Student Entry Form -->
+            <div class="card form-card">
+                <h3>Add New Student</h3>
+                <div class="form-group">
+                    <input type="number" id="stu-id" placeholder="Student ID">
+                    <input type="text" id="stu-name" placeholder="Full Name">
+                    <button id="add-student-btn">Add Student</button>
+                </div>
+            </div>
+
+            <!-- Course Registration -->
+            <div class="card registration-card">
+                <h3>Course Registration</h3>
+                <div class="form-group">
+                    <select id="select-student">
+                        <option value="">Select Student</option>
+                    </select>
+                    <input type="text" id="course-name" placeholder="Course Name">
+                    <button id="register-btn">Register</button>
+                </div>
+            </div>
+
+            <!-- Student Records -->
+            <div class="card records-card">
+                <div class="card-header">
+                    <h3>Student Records</h3>
+                    <button id="save-btn" class="save-btn">Save to DB (Simulated)</button>
+                </div>
+                <div id="status-msg" class="status-msg"></div>
+                <div id="records-list" class="records-grid">
+                    <!-- Records injected here -->
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
