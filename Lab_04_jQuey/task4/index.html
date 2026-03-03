@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4: Tabbed Content with Smooth Scroll</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <div class="header-spacing">
+        <h1>Tabbed Navigation & Smooth Scroll</h1>
+        <p>Scroll down to see the tabs or click on the links.</p>
+    </div>
+
+    <!-- Some spacing to demonstrate smooth scrolling -->
+    <div style="height: 50vh;"></div>
+
+    <div class="tabs-container" id="tabs-section">
+        <ul class="tab-links">
+            <li><a href="#tab1" class="active">Overview</a></li>
+            <li><a href="#tab2">Features</a></li>
+            <li><a href="#tab3">Pricing</a></li>
+            <li><a href="#tab4">FAQs</a></li>
+            <li><a href="#tab5">Contact</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="tab1" class="tab active">
+                <h2>Overview Content</h2>
+                <p>Curabitur accumsan nisi at lectus dictum, in tristique eros posuere. Suspendisse potenti.</p>
+            </div>
+            <div id="tab2" class="tab">
+                <h2>Features Content</h2>
+                <p>Mauris id ligula vitae arcu rutrum malesuada. Phasellus facilisis tellus est.</p>
+            </div>
+            <div id="tab3" class="tab">
+                <h2>Pricing Content</h2>
+                <p>Donec consequat libero ut dolor dapibus, eu vulputate velit gravida.</p>
+            </div>
+            <div id="tab4" class="tab">
+                <h2>FAQs Content</h2>
+                <p>Maecenas venenatis quam quis ante bibendum efficitur.</p>
+            </div>
+            <div id="tab5" class="tab">
+                <h2>Contact Content</h2>
+                <p>Aliquam erat volutpat. Sed elementum sollicitudin libero, at sollicitudin arcu dignissim in.</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 100vh;"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

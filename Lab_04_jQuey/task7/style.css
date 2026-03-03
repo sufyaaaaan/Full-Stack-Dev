@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #fce4ec;
+    /* light pinkish */
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    margin: 0;
+}
+
+.sortable-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 450px;
+}
+
+h1 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#sortable-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#sortable-list li {
+    margin: 0 0 10px 0;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    transition: background-color 0.2s;
+}
+
+#sortable-list li:active {
+    cursor: grabbing;
+}
+
+.drag-handle {
+    margin-right: 15px;
+    color: #adb5bd;
+    cursor: grab;
+}
+
+/* Class added by jQuery UI when dragging */
+.sortable-highlight {
+    background-color: #e3f2fd;
+    border: 1px dashed #2196f3;
+    visibility: visible !important;
+    height: 50px;
+}
+
+.ui-sortable-helper {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #fff !important;
+    transform: scale(1.02);
+}
+
+.order-output {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #495057;
+    text-align: center;
+}

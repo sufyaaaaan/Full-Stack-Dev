@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 7: Drag-and-Drop Sortable List</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+</head>
+
+<body>
+    <div class="sortable-container">
+        <h1>Sortable Todo List</h1>
+        <p>Drag and drop items to reorder them.</p>
+
+        <ul id="sortable-list">
+            <li class="ui-state-default" data-id="1">
+                <span class="drag-handle">☰</span> Read documentation
+            </li>
+            <li class="ui-state-default" data-id="2">
+                <span class="drag-handle">☰</span> Write unit tests
+            </li>
+            <li class="ui-state-default" data-id="3">
+                <span class="drag-handle">☰</span> Refactor old code
+            </li>
+            <li class="ui-state-default" data-id="4">
+                <span class="drag-handle">☰</span> Deploy to staging
+            </li>
+            <li class="ui-state-default" data-id="5">
+                <span class="drag-handle">☰</span> Review pull requests
+            </li>
+        </ul>
+
+        <div class="order-output">
+            <strong>Current Order: </strong>
+            <span id="order-result">1, 2, 3, 4, 5</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 8: Quiz Game</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>JavaScript jQuery Quiz</h1>
+
+        <div id="quiz-block">
+            <div id="question-header">
+                <h2>Question <span id="current-question-num">1</span> of <span id="total-questions"></span></h2>
+            </div>
+
+            <div id="question-text">
+                <!-- Question populates here -->
+            </div>
+
+            <div id="options-container">
+                <!-- Options populate here -->
+            </div>
+
+            <button id="next-btn" disabled>Next Question</button>
+        </div>
+
+        <div id="result-block" style="display: none;">
+            <h2>Quiz Completed!</h2>
+            <p>Your Score: <strong id="score-display"></strong></p>
+            <button id="restart-btn">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

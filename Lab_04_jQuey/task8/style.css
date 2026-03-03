@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #6c5ce7;
+    /* Modern purple */
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    margin: 0;
+}
+
+.quiz-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 600px;
+}
+
+h1 {
+    text-align: center;
+    color: #2d3436;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+#question-header {
+    border-bottom: 1px solid #dfe6e9;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+#question-header h2 {
+    margin: 0;
+    font-size: 16px;
+    color: #636e72;
+}
+
+#question-text {
+    font-size: 20px;
+    color: #2d3436;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.option-btn {
+    padding: 15px 20px;
+    background-color: #f1f2f6;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+    transition: all 0.3s;
+    color: #2d3436;
+}
+
+.option-btn:hover {
+    background-color: #dfe4ea;
+}
+
+/* CSS Manipulation Classes */
+.option-btn.selected {
+    background-color: #e3f2fd;
+    border-color: #0984e3;
+}
+
+.option-btn.correct {
+    background-color: #d4edda;
+    border-color: #00b894;
+    color: #155724;
+}
+
+.option-btn.incorrect {
+    background-color: #f8d7da;
+    border-color: #d63031;
+    color: #721c24;
+}
+
+button#next-btn,
+button#restart-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #0984e3;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+button#next-btn:hover,
+button#restart-btn:hover {
+    background-color: #005ce6;
+}
+
+button#next-btn:disabled {
+    background-color: #74b9ff;
+    cursor: not-allowed;
+}
+
+#result-block {
+    text-align: center;
+}
+
+#result-block h2 {
+    color: #2d3436;
+    margin-bottom: 20px;
+}
+
+#result-block p {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #00b894;
+}
