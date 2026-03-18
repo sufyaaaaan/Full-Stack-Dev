@@ -1,0 +1,127 @@
+.action-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: background-color 0.8s ease-in-out;
+  padding: 20px;
+}
+
+.action-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  max-width: 500px;
+  width: 100%;
+}
+
+.interactive-title {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.message-box {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(139, 92, 246, 0.2));
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #bae6fd;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.slide-down {
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.button-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 600px) {
+  .button-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 16px;
+  border: none;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.action-btn .icon {
+  font-size: 1.5rem;
+}
+
+.action-btn:hover {
+  transform: translateY(-4px);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.btn-msg {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.btn-msg:hover {
+  background: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.2);
+}
+
+.btn-bg {
+  background: rgba(167, 139, 250, 0.15);
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+.btn-bg:hover {
+  background: rgba(167, 139, 250, 0.3);
+  box-shadow: 0 8px 20px rgba(167, 139, 250, 0.2);
+}
+
+.btn-alert {
+  background: rgba(251, 113, 133, 0.15);
+  color: #fb7185;
+  border: 1px solid rgba(251, 113, 133, 0.3);
+}
+.btn-alert:hover {
+  background: rgba(251, 113, 133, 0.3);
+  box-shadow: 0 8px 20px rgba(251, 113, 133, 0.2);
+}
