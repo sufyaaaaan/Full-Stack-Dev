@@ -1,0 +1,14 @@
+{
+  "name": "lab-10-full-stack-node-express",
+  "version": "1.0.0",
+  "description": "Lab 10 Tasks",
+  "scripts": {
+    "task1": "node task1/server.js",
+    "task2": "node task2/server.js",
+    "task3": "node task3/server.js",
+    "task4": "node task4/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
