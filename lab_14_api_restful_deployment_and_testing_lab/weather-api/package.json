@@ -1,0 +1,19 @@
+{
+  "name": "weather-forecast-api",
+  "version": "1.0.0",
+  "description": "RESTful Weather Forecast API with Jest tests and a premium client UI",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --detectOpenHandles --forceExit"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}

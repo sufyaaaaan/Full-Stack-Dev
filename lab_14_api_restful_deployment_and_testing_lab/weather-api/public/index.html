@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroWeather REST API Dashboard</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-decor blob1"></div>
+  <div class="background-decor blob2"></div>
+
+  <main class="dashboard-container">
+    <header class="app-header">
+      <div class="logo">
+        <span class="pulse-dot"></span>
+        <h1>AeroWeather</h1>
+      </div>
+      <p class="tagline">RESTful API Testbed & Client Portal</p>
+    </header>
+
+    <section class="card glassmorphism query-section">
+      <div class="input-group">
+        <label for="city-input">Search Weather API</label>
+        <div class="search-wrapper">
+          <input type="text" id="city-input" placeholder="Enter city name (e.g. London, Tokyo, Lahore)..." autofocus autocomplete="off">
+          <button id="search-btn" class="primary-btn">
+            <span>Query API</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- API Endpoint helper -->
+      <div class="api-helper">
+        <code>GET http://localhost:3001/api/weather?city=<span id="endpoint-preview">london</span></code>
+      </div>
+    </section>
+
+    <!-- Results Panel -->
+    <section class="card glassmorphism result-card hidden" id="result-card">
+      <div class="weather-main">
+        <div class="weather-title-group">
+          <h2 id="city-name">London</h2>
+          <span class="badge" id="weather-badge">Cloudy</span>
+        </div>
+        <div class="temp-display">
+          <span id="temp-val">15.4</span><span class="unit">°C</span>
+        </div>
+      </div>
+
+      <hr class="separator">
+
+      <div class="weather-details-grid">
+        <div class="detail-item">
+          <div class="detail-label">Condition</div>
+          <div class="detail-val" id="weather-condition">Cloudy</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Humidity</div>
+          <div class="detail-val" id="humidity-level">72%</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Source Mode</div>
+          <div class="detail-val" id="source-badge">Local Mock</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">API Status</div>
+          <div class="detail-val success-text">200 OK</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Error Alert -->
+    <div class="alert alert-danger glassmorphism hidden" id="error-card">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-message">
+        <strong id="error-title">Error 404</strong>
+        <p id="error-text">City not found in database.</p>
+      </div>
+    </div>
+
+    <!-- Instructions / API Spec -->
+    <section class="card glassmorphism info-card">
+      <h3>Testing & Integration Specifications</h3>
+      <div class="spec-list">
+        <div class="spec-row">
+          <span class="method get">GET</span>
+          <span class="path">/api/weather?city=london</span>
+          <span class="desc">Retrieves details for the specified city.</span>
+        </div>
+      </div>
+      <div class="instructions-block">
+        <p>💡 <strong>Pro Tip:</strong> Set <code>OPENWEATHER_API_KEY</code> in a local <code>.env</code> file in the <code>weather-api/</code> directory to request live global weather data! By default, the service uses high-fidelity local mock data for major international cities.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Lab 14: Restful Deployment & Testing • Designed with Premium Aesthetics</p>
+  </footer>
+
+  <script>
+    const cityInput = document.getElementById('city-input');
+    const searchBtn = document.getElementById('search-btn');
+    const endpointPreview = document.getElementById('endpoint-preview');
+    const resultCard = document.getElementById('result-card');
+    const errorCard = document.getElementById('error-card');
+
+    const cityName = document.getElementById('city-name');
+    const weatherBadge = document.getElementById('weather-badge');
+    const tempVal = document.getElementById('temp-val');
+    const weatherCondition = document.getElementById('weather-condition');
+    const humidityLevel = document.getElementById('humidity-level');
+    const sourceBadge = document.getElementById('source-badge');
+    const errorTitle = document.getElementById('error-title');
+    const errorText = document.getElementById('error-text');
+
+    // Update endpoint preview dynamically
+    cityInput.addEventListener('input', (e) => {
+      endpointPreview.textContent = encodeURIComponent(e.target.value) || 'london';
+    });
+
+    // Enter key trigger
+    cityInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+
+    searchBtn.addEventListener('click', performSearch);
+
+    async function performSearch() {
+      const city = cityInput.value.trim();
+      if (!city) return;
+
+      searchBtn.disabled = true;
+      searchBtn.classList.add('loading');
+      resultCard.classList.add('hidden');
+      errorCard.classList.add('hidden');
+
+      try {
+        const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
+        const json = await response.json();
+
+        if (json.success) {
+          const data = json.data;
+          cityName.textContent = data.city;
+          tempVal.textContent = data.temperature.toFixed(1);
+          weatherBadge.textContent = data.condition;
+          weatherCondition.textContent = data.condition;
+          humidityLevel.textContent = `${data.humidity}%`;
+          
+          // Detect source based on a mock key convention (OpenWeather key presence)
+          // Simple visual hint
+          sourceBadge.textContent = "API Service";
+          
+          resultCard.classList.remove('hidden');
+          resultCard.classList.add('fade-in');
+        } else {
+          errorTitle.textContent = `API Error (Status: ${response.status})`;
+          errorText.textContent = json.error || 'Failed to fetch weather information.';
+          errorCard.classList.remove('hidden');
+          errorCard.classList.add('fade-in');
+        }
+      } catch (err) {
+        errorTitle.textContent = 'Network Error';
+        errorText.textContent = 'Failed to connect to the weather REST service.';
+        errorCard.classList.remove('hidden');
+        errorCard.classList.add('fade-in');
+      } finally {
+        searchBtn.disabled = false;
+        searchBtn.classList.remove('loading');
+      }
+    }
+  </script>
+</body>
+</html>

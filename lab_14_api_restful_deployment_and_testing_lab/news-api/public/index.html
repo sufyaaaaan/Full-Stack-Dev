@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlobalNews REST API Portal</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-decor blob1"></div>
+  <div class="background-decor blob2"></div>
+
+  <main class="dashboard-container">
+    <header class="app-header">
+      <div class="logo">
+        <span class="pulse-dot"></span>
+        <h1>GlobalNews API</h1>
+      </div>
+      <p class="tagline">RESTful headlines delivery service & client explorer</p>
+    </header>
+
+    <section class="card glassmorphism filter-section">
+      <div class="filter-controls">
+        <div class="input-group">
+          <label for="country-selector">Select News Origin Country</label>
+          <select id="country-selector">
+            <option value="us" selected>🇺🇸 United States (US)</option>
+            <option value="gb">🇬🇧 United Kingdom (GB)</option>
+            <option value="ca">🇨🇦 Canada (CA)</option>
+            <option value="in">🇮🇳 India (IN)</option>
+            <option value="pk">🇵🇰 Pakistan (PK)</option>
+          </select>
+        </div>
+        <button id="fetch-btn" class="primary-btn">
+          <span>Fetch Headlines</span>
+        </button>
+      </div>
+
+      <!-- API Endpoint helper -->
+      <div class="api-helper">
+        <code>GET http://localhost:3002/api/news/<span id="endpoint-preview">us</span></code>
+      </div>
+    </section>
+
+    <!-- Headlines Loader -->
+    <div id="loader" class="loader-container hidden">
+      <div class="spinner"></div>
+      <p>Consulting news service...</p>
+    </div>
+
+    <!-- Error Card -->
+    <div class="alert alert-danger glassmorphism hidden" id="error-card">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-message">
+        <strong id="error-title">Endpoint Error</strong>
+        <p id="error-text">Failed to fetch headlines for country code.</p>
+      </div>
+    </div>
+
+    <!-- Headlines Container Grid -->
+    <section class="headlines-grid" id="headlines-grid">
+      <!-- Dynamically filled with article cards -->
+    </section>
+
+    <!-- Technical Specs -->
+    <section class="card glassmorphism info-card">
+      <h3>Integration Route Blueprint</h3>
+      <div class="spec-list">
+        <div class="spec-row">
+          <span class="method get">GET</span>
+          <span class="path">/api/news/:countryCode</span>
+          <span class="desc">Retrieves top headlines for the given country.</span>
+        </div>
+      </div>
+      <div class="instructions-block">
+        <p>💡 <strong>Note:</strong> Specify your <code>NEWS_API_KEY</code> inside the project's local <code>.env</code> file to unlock real-time headlines. If no key is set, the API operates in high-fidelity mock fallback mode supplying headlines from premium publications.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Lab 14: Restful Deployment & Testing • Designed with Premium Aesthetics</p>
+  </footer>
+
+  <script>
+    const countrySelector = document.getElementById('country-selector');
+    const fetchBtn = document.getElementById('fetch-btn');
+    const endpointPreview = document.getElementById('endpoint-preview');
+    const headlinesGrid = document.getElementById('headlines-grid');
+    const loader = document.getElementById('loader');
+    const errorCard = document.getElementById('error-card');
+    const errorTitle = document.getElementById('error-title');
+    const errorText = document.getElementById('error-text');
+
+    // Update endpoint preview dynamically
+    countrySelector.addEventListener('change', (e) => {
+      endpointPreview.textContent = e.target.value;
+      performFetch();
+    });
+
+    fetchBtn.addEventListener('click', performFetch);
+
+    // Initial Load
+    performFetch();
+
+    async function performFetch() {
+      const country = countrySelector.value;
+      
+      // Reset view states
+      fetchBtn.disabled = true;
+      loader.classList.remove('hidden');
+      headlinesGrid.innerHTML = '';
+      errorCard.classList.add('hidden');
+
+      try {
+        const response = await fetch(`/api/news/${country}`);
+        const json = await response.json();
+
+        if (json.success) {
+          const articles = json.articles;
+          if (articles.length === 0) {
+            headlinesGrid.innerHTML = `<div class="card glassmorphism empty-state"><p>No articles found for country ${country.toUpperCase()}</p></div>`;
+          } else {
+            articles.forEach(art => {
+              const card = document.createElement('article');
+              card.className = 'card glassmorphism article-card fade-in';
+              
+              // Format ISO date nicely
+              let dateStr = 'Recently';
+              if (art.publishedAt) {
+                const dateObj = new Date(art.publishedAt);
+                dateStr = dateObj.toLocaleDateString(undefined, {
+                  month: 'short',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                });
+              }
+
+              card.innerHTML = `
+                <div class="article-meta">
+                  <span class="source-tag">${escapeHtml(art.source)}</span>
+                  <span class="date-tag">${dateStr}</span>
+                </div>
+                <h3 class="article-title">${escapeHtml(art.title)}</h3>
+                <a href="${art.url}" target="_blank" rel="noopener noreferrer" class="read-more-link">
+                  <span>Read Article</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+                </a>
+              `;
+              headlinesGrid.appendChild(card);
+            });
+          }
+        } else {
+          errorTitle.textContent = `API Error (Status: ${response.status})`;
+          errorText.textContent = json.error || 'Failed to retrieve headlines.';
+          errorCard.classList.remove('hidden');
+        }
+      } catch (err) {
+        errorTitle.textContent = 'Network Error';
+        errorText.textContent = 'Could not establish connection to the Headlines REST server.';
+        errorCard.classList.remove('hidden');
+      } finally {
+        fetchBtn.disabled = false;
+        loader.classList.add('hidden');
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>

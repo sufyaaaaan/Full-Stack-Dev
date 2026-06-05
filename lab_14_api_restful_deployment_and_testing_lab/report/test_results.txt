@@ -1,0 +1,91 @@
+﻿=================== WEATHER FORECAST API JEST RESULTS ===================
+
+> weather-forecast-api@1.0.0 test
+> jest --detectOpenHandles --forceExit
+
+node.exe : PASS tests/system/weatherSystem.test.js
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PASS tests/system/weatherSystem.test.js:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Weather REST API - End-to-End System Tests
+    ΓêÜ System should resolve end-to-end request for a known city (Tokyo) (120 ms)
+    ΓêÜ System should handle end-to-end validation failure for invalid input parameters (74 ms)
+    ΓêÜ System should handle end-to-end API failure mapping for missing entries (11 ms)
+
+PASS tests/integration/weatherApi.test.js
+  Weather API - Integration Tests
+    GET /api/weather
+      ΓêÜ should return 200 OK and weather data for a valid city (39 ms)
+      ΓêÜ should return 400 Bad Request if city query param is missing (27 ms)
+      ΓêÜ should return 400 Bad Request if city query is empty spaces (14 ms)
+      ΓêÜ should return 404 Not Found for non-existing city in database (13 ms)
+    Static Site Serving & Fallback Router
+      ΓêÜ should serve index.html on root path GET / (20 ms)
+      ΓêÜ should return 404 for unhandled API routes (14 ms)
+
+PASS tests/unit/weatherService.test.js
+  Weather Service - Unit Tests
+    When API key is NOT configured (Local Mock Database Mode)
+      ΓêÜ should fetch weather from local mock DB for valid cities (3 ms)
+      ΓêÜ should be case-insensitive when fetching from local mock DB (2 ms)
+      ΓêÜ should throw a 404 error if city is not in mock DB (2 ms)
+      ΓêÜ should throw an error for empty city string (10 ms)
+    When API key IS configured (External API Mode)
+      ΓêÜ should fetch and format data successfully from external API (3 ms)
+      ΓêÜ should handle external API 404 errors (3 ms)
+      ΓêÜ should handle generic API connection errors (2 ms)
+
+Test Suites: 3 passed, 3 total
+Tests:       16 passed, 16 total
+Snapshots:   0 total
+Time:        1.604 s, estimated 2 s
+Ran all test suites.
+
+
+=================== NEWS HEADLINES API JEST RESULTS ===================
+
+> news-headlines-api@1.0.0 test
+> jest --detectOpenHandles --forceExit
+
+node.exe : PASS tests/unit/newsService.test.js
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PASS tests/unit/newsService.test.js:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  News Service - Unit Tests
+    When API key is NOT configured (Local Mock Database Mode)
+      ΓêÜ should fetch news headlines from mock database for valid codes (13 ms)
+      ΓêÜ should handle inputs with spaces and mixed case correctly (3 ms)
+      ΓêÜ should reject codes that are not 2 characters in length (3 ms)
+      ΓêÜ should throw error for empty country codes (18 ms)
+    When API key IS configured (External API Mode)
+      ΓêÜ should fetch, filter, and limit to 10 articles successfully from external API (5 ms)
+      ΓêÜ should handle external API error states (3 ms)
+      ΓêÜ should handle service connection failure gracefully (3 ms)
+
+PASS tests/integration/newsApi.test.js
+  News API - Integration Tests
+    GET /api/news/:countryCode
+      ΓêÜ should return 200 OK and articles array for valid country code (80 ms)
+      ΓêÜ should return 400 Bad Request for dynamic param with invalid country code size (16 ms)
+      ΓêÜ should return 400 Bad Request for country code shorter than 2 characters (14 ms)
+    Static Site Serving & Router Fallback
+      ΓêÜ should serve index.html on root endpoint GET / (20 ms)
+      ΓêÜ should return 404 for undefined routes (15 ms)
+
+PASS tests/system/newsSystem.test.js
+  News REST API - End-to-End System Tests
+    ΓêÜ System should resolve end-to-end headline queries for dynamic route (GB) (86 ms)
+    ΓêÜ System should reject dynamic param that does not match size validation (e.g. longer than 2 characters) (92 ms)
+    ΓêÜ System should yield 404 for unsupported route formats (12 ms)
+
+Test Suites: 3 passed, 3 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        1.655 s, estimated 2 s
+Ran all test suites.
